@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { ButtonComponent } from './components/button/button.component';
+import { BoardCardComponent } from './components/board-card/board-card.component';
 
 @NgModule({
-  declarations: [ButtonComponent],
+  declarations: [ButtonComponent, BoardCardComponent],
   imports: [CommonModule, FontAwesomeModule],
-  exports: [ButtonComponent],
+  exports: [ButtonComponent, BoardCardComponent],
 })
 export class SharedModule {}

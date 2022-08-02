@@ -1,12 +1,28 @@
-import { Component } from '@angular/core';
-import { faBox, faWaveSquare, faClock, faAngleUp, faAngleDown, faHeart, faBorderAll, faUsers, faGear } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit } from '@angular/core';
+import {
+  faBox,
+  faWaveSquare,
+  faClock,
+  faAngleUp,
+  faAngleDown,
+  faHeart,
+  faBorderAll,
+  faUsers,
+  faGear,
+} from '@fortawesome/free-solid-svg-icons';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
+
+import { MeService } from '@services/me.service';
+import { Board } from '@models/board.model';
+import { RequestStatus } from '@models/request-status.model';
 
 @Component({
   selector: 'app-boards',
-  templateUrl: './boards.component.html'
+  templateUrl: './boards.component.html',
 })
-export class BoardsComponent {
+export class BoardsComponent implements OnInit {
+  boards: Board[] = [];
+  status: RequestStatus = 'init';
 
   faTrello = faTrello;
   faBox = faBox;
@@ -19,6 +35,22 @@ export class BoardsComponent {
   faUsers = faUsers;
   faGear = faGear;
 
-  constructor() { }
+  constructor(private meService: MeService) {}
 
+  ngOnInit() {
+    this.getMeBoards();
+  }
+
+  getMeBoards() {
+    this.status = 'loading';
+    this.meService.getMeBoards().subscribe({
+      next: (data) => {
+        this.status = 'success';
+        this.boards = data;
+      },
+      error: () => {
+        this.status = 'failed';
+      },
+    });
+  }
 }

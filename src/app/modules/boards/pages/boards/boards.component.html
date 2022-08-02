@@ -20,11 +20,17 @@
 
     <cdk-accordion>
       <cdk-accordion-item #accordionMenu="cdkAccordionItem">
-        <button class="w-full py-1 px-2 flex justify-between items-center" type="button" (click)="accordionMenu.toggle()">
+        <button
+          class="w-full py-1 px-2 flex justify-between items-center"
+          type="button"
+          (click)="accordionMenu.toggle()"
+        >
           My workspace
-          <fa-icon [icon]="accordionMenu.expanded ? faAngleUp : faAngleDown"></fa-icon>
+          <fa-icon
+            [icon]="accordionMenu.expanded ? faAngleUp : faAngleDown"
+          ></fa-icon>
         </button>
-        <div [style.display]="accordionMenu.expanded ? '' : 'none' ">
+        <div [style.display]="accordionMenu.expanded ? '' : 'none'">
           <ul class="ml-2 flex flex-col text-sm text-gray-700">
             <li>
               <a class="block py-1 px-3"
@@ -57,12 +63,18 @@
     </cdk-accordion>
   </div>
   <div class="w-full">
-    <h1 class="text-lg font-bold mb-4"><fa-icon [icon]="faClock"></fa-icon> Recently viewed</h1>
+    <h1 class="text-lg font-bold mb-4">
+      <fa-icon [icon]="faClock"></fa-icon> Recently viewed
+    </h1>
     <div class="grid grid-cols-4 gap-4">
-      <a routerLink="/app/boards/1" class="w-full bg-sky-700 px-4 py-2 rounded text-white font-bold h-24">Board 1</a>
-      <a routerLink="/app/boards/1" class="w-full bg-green-700 px-4 py-2 rounded text-white font-bold h-24">Board 1</a>
-      <a routerLink="/app/boards/1" class="w-full bg-amber-700 px-4 py-2 rounded text-white font-bold h-24">Board 1</a>
-      <a routerLink="/app/boards/1" class="w-full bg-indigo-700 px-4 py-2 rounded text-white font-bold h-24">Board 1</a>
+      <a
+        [routerLink]="['/app/boards', board.id]"
+        class="w-full"
+        *ngFor="let board of boards"
+        >
+          <app-board-card [color]="board.backgroundColor">{{ board.title }}</app-board-card>
+        </a
+      >
     </div>
   </div>
 </div>
