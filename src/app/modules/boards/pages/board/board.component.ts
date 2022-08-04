@@ -11,6 +11,7 @@ import { TodoDialogComponent } from '@boards/components/todo-dialog/todo-dialog.
 import { Card } from '@models/card.model';
 import { Board } from '@models/board.model';
 import { BoardsService } from '@services/boards.service';
+import { CardService } from '@services/cards.service';
 import { RequestStatus } from '@models/request-status.model';
 
 @Component({
@@ -35,6 +36,7 @@ export class BoardComponent implements OnInit {
   constructor(
     private dialog: Dialog,
     private boardService: BoardsService,
+    private cardService: CardService,
     private route: ActivatedRoute
   ) {}
 
@@ -75,9 +77,10 @@ export class BoardComponent implements OnInit {
         event.currentIndex
       );
     }
-    const newPosition = this.boardService.getPosition(event.container.data,  event.currentIndex);
+    const position = this.boardService.getPosition(event.container.data,  event.currentIndex);
     const card = event.container.data[event.currentIndex];
-    this.updatePosition(card, newPosition);
+    this.cardService.update(card.id, { position, listId: event.container.id })
+    .subscribe();
   }
 
   addColumn() {
@@ -98,9 +101,5 @@ export class BoardComponent implements OnInit {
         console.log(output);
       }
     });
-  }
-
-  updatePosition(card: Card, newPosition: number) {
-    console.log(card.id, card.title, newPosition);
   }
 }

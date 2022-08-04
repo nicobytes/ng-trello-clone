@@ -25,8 +25,8 @@ export class BoardsService {
     if (cards.length === 1) {
       return this.buffer;
     }
-    if (cards.length > 0  && currentIndex === 0) {
-      const onTopPosition = cards[0].position;
+    if (cards.length > 1  && currentIndex === 0) {
+      const onTopPosition = cards[1].position;
       return onTopPosition / 2;
     }
     const lastIndex = cards.length - 1;
