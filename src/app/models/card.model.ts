@@ -10,7 +10,8 @@ export interface Card {
   board: Board;
 }
 
-export interface CreateCardDto extends Omit<Card, 'id' | 'list' | 'board'> {
+export interface CreateCardDto extends Omit<Card, 'id' | 'list' | 'board' | 'description'> {
+  description?: string;
   listId: string;
   boardId: string;
 }

@@ -1,7 +1,7 @@
-import { User } from "./user.model";
-import { Colors } from "./colors.model";
-import { List } from "./list.model";
-import { Card } from "./card.model";
+import { User } from './user.model';
+import { Colors } from './colors.model';
+import { List } from './list.model';
+import { Card } from './card.model';
 
 export interface Board {
   id: string;
@@ -11,3 +11,6 @@ export interface Board {
   lists: List[];
   cards: Card[];
 }
+
+export interface CreateBoardDto
+  extends Omit<Board, 'id' | 'members' | 'lists' | 'cards'> {}

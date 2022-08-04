@@ -1,5 +1,5 @@
 <ng-container *ngIf="user$ | async as user">
-  <nav class="bg-sky-700 border-gray-200 px-6 shadow-md">
+  <nav class=" border-gray-200 px-6 shadow-md" [ngClass]="colors">
     <div class="flex flex-wrap justify-between items-center">
       <div class="flex items-center">
         <a routerLink="/app">
@@ -14,7 +14,7 @@
           <ul class="flex items-center space-x-2 text-sm font-medium">
             <li>
               <app-btn
-                color="sky"
+                [color]="backgroundColor"
                 (click)="isOpenOverlayBoards = !isOpenOverlayBoards"
                 cdkOverlayOrigin
                 #boardsOverlay="cdkOverlayOrigin"
@@ -29,7 +29,17 @@
               <a routerLink="/app/users" class="block py-3 px-4 text-white">Users</a>
             </li>
             <li>
-              <app-btn typeBtn="button" color="sky">Create</app-btn>
+              <app-btn
+                [color]="backgroundColor"
+                (click)="isOpenOverlayCreateBoard = !isOpenOverlayCreateBoard"
+                cdkOverlayOrigin
+                #createBoardOverlay="cdkOverlayOrigin"
+              >
+                <span class="flex space-x-2 text-left">
+                  <span>Create</span>
+                  <fa-icon [icon]="faAngleDown"></fa-icon>
+                </span>
+              </app-btn>
             </li>
           </ul>
         </div>
@@ -145,6 +155,30 @@
         </button>
       </div>
       <div class="py-3 px-4 flex justify-between">Content</div>
+    </div>
+  </ng-template>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="createBoardOverlay"
+    [cdkConnectedOverlayOpen]="isOpenOverlayCreateBoard"
+    (overlayOutsideClick)="isOpenOverlayCreateBoard = !isOpenOverlayCreateBoard"
+  >
+    <div
+      class="z-50 my-4 w-60 text-base list-none bg-white rounded divide-y divide-gray-100 shadow"
+    >
+      <div class="py-2 px-4 text-center relative">
+        <span class="block text-normal text-gray-900">New Board</span>
+        <button
+          (click)="isOpenOverlayCreateBoard = !isOpenOverlayCreateBoard"
+          class="block text-sm text-gray-900 absolute right-3 top-3"
+        >
+          <fa-icon [icon]="faClose"></fa-icon>
+        </button>
+      </div>
+      <div class="py-3 px-4 flex justify-between">
+        <app-board-form></app-board-form>
+      </div>
     </div>
   </ng-template>
 
